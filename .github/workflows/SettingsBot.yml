@@ -1,0 +1,38 @@
+name: Settings
+
+on:
+  workflow_dispatch:
+    inputs:
+      telegram_bot_token:
+        description: 'Input your Telegram Bot Token'
+        required: true
+      fake_hostname:
+        description: 'Input the Fake Hostname'
+        required: true
+      owner_id:
+        description: 'Input the Owner ID'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run script with inputs
+      env:
+        TELEGRAM_BOT_TOKEN: ${{ github.event.inputs.telegram_bot_token }}
+        FAKE_HOSTNAME: ${{ github.event.inputs.fake_hostname }}
+        OWNER_ID: ${{ github.event.inputs.owner_id }}
+      run: |
+        node _worker.js

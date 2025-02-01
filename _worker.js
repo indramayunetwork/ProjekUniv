@@ -6,7 +6,7 @@ let proxyIP = "";
 let apiCheck = 'https://ipcf.rmtq.fun/json/?ip=';
 
 const DEFAULT_PROXY_BANK_URL = "https://raw.githubusercontent.com/InconigtoVPN/Inconigto.VPN/refs/heads/main/iplist.txt";
-const TELEGRAM_BOT_TOKEN = '734223492-YHrJ_LlQU39Iz_Eot2OQ59xAk';
+const TELEGRAM_BOT_TOKEN = '7342234925:AAE4mYTLrv9wsinHiMTIlpJ3MJxVJ9GDTX0';
 const TELEGRAM_API_URL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`;
 const APICF = 'https://ipcf.rmtq.fun/json/';
 const FAKE_HOSTNAME = 'inconigto.us.kg';

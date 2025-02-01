@@ -1066,6 +1066,7 @@ async function handleSubRequest(hostnem) {
                         <option value="vless">VLESS</option>
                         <option value="trojan">TROJAN</option>
                         <option value="shadowsocks">SHADOWSOCKS</option>
+                        <option value="mix">ALL CONFIG</option>
                     </select>
                 </div>
 

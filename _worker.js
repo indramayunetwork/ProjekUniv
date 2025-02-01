@@ -1,6 +1,6 @@
 import { connect } from "cloudflare:sockets";
 
-const DEFAULT_PROXY_BANK_URL = "https://raw.githubusercontent.com/InconigtoVPN/Inconigto.VPN/refs/heads/main/iplist.txt";
+const DEFAULT_PROXY_BANK_URL = "https://raw.githubusercontent.com/InconigtoVPN/InconigtoVPN/refs/heads/main/iplist.txt";
 
 // Global Variables
 let cachedProxyList = [];

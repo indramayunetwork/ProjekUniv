@@ -9,7 +9,7 @@ const DEFAULT_PROXY_BANK_URL = "https://raw.githubusercontent.com/InconigtoVPN/I
 const TELEGRAM_BOT_TOKEN = '734223492-YHrJ_LlQU39Iz_Eot2OQ59xAk';
 const TELEGRAM_API_URL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`;
 const APICF = 'https://ipcf.rmtq.fun/json/';
-const FAKE_HOSTNAME = 'vip.rmtq.fun';
+const FAKE_HOSTNAME = 'inconigto.us.kg';
 const ownerId = 7321724865; // Ganti dengan chat_id pemilik bot (angka tanpa tanda kutip)
 
 
@@ -420,7 +420,7 @@ async function handleStartCommand(chatId) {
 
 👨‍💻 Dikembangkan oleh: [Incognito Mode](https://t.me/Inconigt0)
 
-🌐 WEB VPN TUNNEL : [VPN Tunnel CloudFlare](https://vip.rmtq.fun)
+🌐 WEB VPN TUNNEL : [VPN Tunnel CloudFlare](https://inconigto.us.kg)
 📺 CHANNEL : [Inconigto Channel](https://t.me/inconigtostore)
 👥 GROUP : [Incognito Grup](https://t.me/+kz5Z_vC2M84xY2Q1)
   `;
@@ -437,7 +437,7 @@ async function handleGetInfo(chatId) {
 
 👨‍💻 Dikembangkan oleh: [Incognito Mode](https://t.me/Inconigt0)
 
-🌐 WEB VPN TUNNEL : [VPN Tunnel CloudFlare](https://vip.rmtq.fun)
+🌐 WEB VPN TUNNEL : [VPN Tunnel CloudFlare](https://inconigto.us.kg)
 📺 CHANNEL : [Inconigto Channel](https://t.me/inconigtostore)
 👥 GROUP : [Incognito Grup](https://t.me/+kz5Z_vC2M84xY2Q1)
   `;
@@ -446,7 +446,7 @@ async function handleGetInfo(chatId) {
  
 
 async function handleListWildcard(chatId) {
-  const afrcloud = `vip.rmtq.fun`;
+  const afrcloud = `inconigto.us.kg`;
   const infoMessage = `
 🎉 List Wildcard VPN Tunnel Incognito Bot! 🎉
 
@@ -463,7 +463,7 @@ async function handleListWildcard(chatId) {
 
 👨‍💻 Dikembangkan oleh: [Incognito Mode](https://t.me/Inconigt0)
 
-🌐 WEB VPN TUNNEL : [VPN Tunnel CloudFlare](https://vip.rmtq.fun)
+🌐 WEB VPN TUNNEL : [VPN Tunnel CloudFlare](https://inconigto.us.kg)
 📺 CHANNEL : [Inconigto Channel](https://t.me/inconigtostore)
 👥 GROUP : [Incognito Grup](https://t.me/+kz5Z_vC2M84xY2Q1)
 
@@ -935,10 +935,10 @@ proxies:
         <h2>VLESS TROJAN SHADOWSOCKS</h2>
         <h2>CloudFlare</h2>
         <hr class="config-divider"/>
-        <h1><strong> Country : </strong>${country} </h1>
-        <h1><strong> Country : </strong>${org} </h1>
-        <h1><strong> ProxyIP : </strong>${proxyIP}:${proxyPort}</h1>
-        <button class="button" onclick="fetchAndDisplayAlert('${status}')">Proxy Status</button>
+        <center><h1><strong> Country : </strong>${country} </h1></center>
+        <center><h1><strong> Country : </strong>${org} </h1></center>
+        <center><h1><strong> ProxyIP : </strong>${proxyIP}:${proxyPort}</h1></center>
+        <center><button class="button" onclick="fetchAndDisplayAlert('${status}')">Proxy Status</button></center>
     
         <hr class="config-divider" />
     

@@ -936,7 +936,7 @@ proxies:
         <h2>CloudFlare</h2>
         <hr class="config-divider"/>
         <center><h1><strong> Country : </strong>${country} </h1></center>
-        <center><h1><strong> Country : </strong>${org} </h1></center>
+        <center><h1><strong> ISP : </strong>${org} </h1></center>
         <center><h1><strong> ProxyIP : </strong>${proxyIP}:${proxyPort}</h1></center>
         <center><button class="button" onclick="fetchAndDisplayAlert('${status}')">Proxy Status</button></center>
     

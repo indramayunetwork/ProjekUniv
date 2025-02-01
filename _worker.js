@@ -1972,7 +1972,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     const proxyPort = parts[1] || 443;
     const emojiFlag = getEmojiFlag(line.split(',')[2]); // Konversi ke emoji bendera
     const sanitize = (text) => text.replace(/[\n\r]+/g, "").trim(); // Hapus newline dan spasi ekstra
-    let ispName = sanitize(`${emojiFlag} (${line.split(',')[2]}) ${line.split(',')[3]} ${count ++}`);
+    let ispName = sanitize(`${emojiFlag} [${line.split(',')[2]}] ${line.split(',')[3]} ${count ++}`);
     const UUIDS = `${generateUUIDv4()}`;
     const ports = tls ? '443' : '80';
     const snio = tls ? `\n  servername: ${inconigtomode}` : '';
@@ -1980,7 +1980,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     if (type === 'vless') {
       bex += `  - ${ispName}\n`
       conf += `
-- name: ${ispName}
+- name: ${ispName}-[VL]-[InconigtoVpn]
   server: ${bug}
   port: ${ports}
   type: vless
@@ -2007,7 +2007,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     } else if (type === 'trojan') {
       bex += `  - ${ispName}\n`
       conf += `
-- name: ${ispName}
+- name: ${ispName}-[TR]-[InconigtoVpn]
   server: ${bug}
   port: 443
   type: trojan
@@ -2035,7 +2035,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     } else if (type === 'shadowsocks') {
       bex += `  - ${ispName}\n`
       conf += `
-- name: ${ispName}
+- name: ${ispName}-[SS]-[InconigtoVpn]
   type: ss
   server: ${bug}
   port: ${ports}

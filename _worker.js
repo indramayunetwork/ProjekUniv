@@ -2058,9 +2058,9 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     v2ray-http-upgrade-fast-open: false
     `;
     } else if (type === 'mix') {
-      bex += `  - ${ispName} vless\n  - ${ispName} trojan\n  - ${ispName} ss\n`;
+      bex += `  - ${ispName}-[VL]-[InconigtoVpn]\n  - ${ispName}-[TR]-[InconigtoVpn]\n  - ${ispName}-[SS]-[InconigtoVpn]\n`;
       conf += `
-- name: ${ispName} vless
+- name: ${ispName}-[VL]-[InconigtoVpn]
   server: ${bug}
   port: ${ports}
   type: vless
@@ -2074,7 +2074,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     path: /${proxyHost}=${proxyPort}
     headers:
       Host: ${inconigtomode}
-- name: ${ispName} trojan
+- name: ${ispName}-[TR]-[InconigtoVpn]
   server: ${bug}
   port: 443
   type: trojan
@@ -2087,7 +2087,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     path: /${proxyHost}=${proxyPort}
     headers:
       Host: ${inconigtomode}
-- name: ${ispName} ss
+- name: ${ispName}-[SS]-[InconigtoVpn]
   type: ss
   server: ${bug}
   port: ${ports}

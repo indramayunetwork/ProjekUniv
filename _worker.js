@@ -375,7 +375,7 @@ proxies:
         <center><button onclick="copyToClipboard(decodeURIComponent('${encodedAllconfigs}'))">Copy All Configs</button></center>
         <hr class="config-divider" /> 
         <h2>Generate SUB</h2>
-        <center><button onclick="window.open('https://${hostName}/sub')">Generate SUB</button></center>
+        <center><button onclick="window.open('https://${hostName}/sub')">Generate Sub Link</button></center>
         <hr class="config-divider" /> 
       </div>`;
     })
@@ -1274,7 +1274,7 @@ async function handleSubRequest(hostnem) {
 
                 <div class="form-group">
                     <label for="limit">Jumlah Config</label>
-                    <input type="number" id="limit" class="form-control" min="1" max="20" placeholder="Maks 20" required>
+                    <input type="number" id="limit" class="form-control" min="1" max="100" placeholder="Maks 100" required>
                 </div>
 
                 <button type="submit" class="btn">Generate Sub Link</button>

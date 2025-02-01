@@ -5,7 +5,7 @@ let cachedProxyList = [];
 let proxyIP = "";
 let apiCheck = 'https://ipcf.rmtq.fun/json/?ip=';
 
-const DEFAULT_PROXY_BANK_URL = "https://raw.githubusercontent.com/AFRcloud/iptfstore/refs/heads/main/vip.txt";
+const DEFAULT_PROXY_BANK_URL = "https://raw.githubusercontent.com/InconigtoVPN/Inconigto.VPN/refs/heads/main/iplist.txt";
 const TELEGRAM_BOT_TOKEN = '734223492-YHrJ_LlQU39Iz_Eot2OQ59xAk';
 const TELEGRAM_API_URL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`;
 const APICF = 'https://ipcf.rmtq.fun/json/';

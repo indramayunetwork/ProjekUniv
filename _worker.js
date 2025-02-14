@@ -672,8 +672,7 @@ proxies:
       <div class="tab-content">${proxyListElements}</div>
     </div>
     <br>
-    <a href="https://t.me/inconigtobot" class="watermark" target="_blank">Inconigto-Bot</a>
-    <a href="https://t.me/Inconigt0" class="author-link" target="_blank">Inconigto-VPN</a>
+    <a href="https://t.me/@InconigtoVPN" class="author-link" target="_blank">Inconigto-VPN</a>
     <script>
   function filterTabs() {
     const query = document.getElementById('search').value.toLowerCase();

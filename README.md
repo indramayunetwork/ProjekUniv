@@ -1,6 +1,7 @@
-<center">🌐 InconigtoVPN
-</center>
+<h1 align="center">🌐 InconigtoVPN</h1>
+
 ---
+
 ## ⚡ Serverless VLESS | Trojan | Shadowsocks with URL Subscriptions
 
 InconigtoVPN adalah solusi VPN berbasis Cloudflare Workers yang memungkinkan koneksi aman dan cepat tanpa perlu server fisik. Dengan dukungan protokol **VLESS**, **Trojan**, dan **Shadowsocks**, kamu bisa menikmati kebebasan internet dengan performa tinggi dan latensi rendah.

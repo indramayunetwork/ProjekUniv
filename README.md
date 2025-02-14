@@ -1,6 +1,5 @@
-<p align="center">
-# 🌐 InconigtoVPN
-</p>
+<center">🌐 InconigtoVPN
+</center>
 ---
 ## ⚡ Serverless VLESS | Trojan | Shadowsocks with URL Subscriptions
 

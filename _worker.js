@@ -48,13 +48,29 @@ async function checkIPAndPort(ip, port) {
   }
 }
 
-
-
 export default {
   async fetch(request, env, ctx) {
     try {
       const url = new URL(request.url);
       const upgradeHeader = request.headers.get("Upgrade");
+
+      const inconigto = url.hostname;
+      const type = url.searchParams.get('type') || 'mix';
+      const tls = url.searchParams.get('tls') !== 'false';
+      const wildcard = url.searchParams.get('wildcard') === 'true';
+      const bugs = url.searchParams.get('bug') || inconigto;
+      const inconigtomode = wildcard ? `${bugs}.${inconigto}` : inconigto;
+      const country = url.searchParams.get('country');
+      const limit = parseInt(url.searchParams.get('limit'), 10);
+      let configs;
+
+      if (url.pathname.startsWith("/")) {
+        const pathParts = url.pathname.slice(1).split(":");
+        if (pathParts.length === 2) {
+          const [ip, port] = pathParts;
+          return await checkIPAndPort(ip, port);
+        }
+      }
 
       // Map untuk menyimpan proxy per country code
       const proxyState = new Map();
@@ -68,21 +84,25 @@ export default {
           const randomIndex = Math.floor(Math.random() * proxies.length);
           proxyState.set(countryCode, proxies[randomIndex]);
         }
-
-        console.log("Proxy list updated:", Array.from(proxyState.entries()));
       }
 
       // Jalankan pembaruan proxy setiap menit
       ctx.waitUntil(
         (async function periodicUpdate() {
           await updateProxies();
-          setInterval(updateProxies, 60000); // Setiap 60 detik
+          setInterval(updateProxies, 60000);
         })()
       );
 
       if (upgradeHeader === "websocket") {
-        // Match path dengan format /CC atau /CCangka
-        const pathMatch = url.pathname.match(/^\/([A-Z]{2})(\d+)?$/);
+        if (!url.pathname.startsWith("/Free/inconigtoVPN/")) {
+          console.log(`Blocked request (Invalid Path): ${url.pathname}`);
+          return new Response(null, { status: 403 });
+        }
+
+        const cleanPath = url.pathname.replace("/Free/inconigtoVPN/", "");
+
+        const pathMatch = cleanPath.match(/^([A-Z]{2})(\d+)?$/);
 
         if (pathMatch) {
           const countryCode = pathMatch[1];
@@ -90,59 +110,30 @@ export default {
 
           console.log(`Country Code: ${countryCode}, Index: ${index}`);
 
-          // Ambil proxy berdasarkan country code
           const proxies = await getProxyList(env);
           const filteredProxies = proxies.filter((proxy) => proxy.country === countryCode);
 
           if (filteredProxies.length === 0) {
-            return new Response(`No proxies available for country: ${countryCode}`, { status: 404 });
+            return new Response(null, { status: 403 });
           }
 
-          let selectedProxy;
-
-          if (index === null) {
-            // Ambil proxy acak dari state jika ada
-            selectedProxy = proxyState.get(countryCode) || filteredProxies[0];
-          } else if (index < 0 || index >= filteredProxies.length) {
-            return new Response(
-              `Index ${index + 1} out of bounds. Only ${filteredProxies.length} proxies available for ${countryCode}.`,
-              { status: 400 }
-            );
-          } else {
-            selectedProxy = filteredProxies[index];
-          }
+          let selectedProxy = index === null ? (proxyState.get(countryCode) || filteredProxies[0]) : filteredProxies[index];
 
           proxyIP = `${selectedProxy.proxyIP}:${selectedProxy.proxyPort}`;
           console.log(`Selected Proxy: ${proxyIP}`);
           return await websockerHandler(request);
         }
 
-        // Match path dengan format ip:port atau ip=port
-        const ipPortMatch = url.pathname.match(/^\/(.+[:=-]\d+)$/);
+        const ipPortMatch = cleanPath.match(/^(.+[:=-]\d+)$/);
 
         if (ipPortMatch) {
-          proxyIP = ipPortMatch[1].replace(/[=:-]/, ":"); // Standarisasi menjadi ip:port
+          proxyIP = ipPortMatch[1].replace(/[=:-]/, ":");
           console.log(`Direct Proxy IP: ${proxyIP}`);
           return await websockerHandler(request, proxyIP);
         }
-      }
-      
-      const inconigto = url.hostname;
-      const type = url.searchParams.get('type') || 'mix';
-      const tls = url.searchParams.get('tls') !== 'false';
-      const wildcard = url.searchParams.get('wildcard') === 'true';
-      const bugs = url.searchParams.get('bug') || inconigto;
-      const inconigtomode = wildcard ? `${bugs}.${inconigto}` : inconigto;
-      const country = url.searchParams.get('country');
-      const limit = parseInt(url.searchParams.get('limit'), 10); // Ambil nilai limit
-      let configs;
 
-      if (url.pathname.startsWith("/")) {
-        const pathParts = url.pathname.slice(1).split(":");
-        if (pathParts.length === 2) {
-          const [ip, port] = pathParts;
-          return await checkIPAndPort(ip, port);
-        }
+        console.log(`Blocked request (Invalid Format): ${url.pathname}`);
+        return new Response(null, { status: 403 });
       }
 
       switch (url.pathname) {
@@ -168,15 +159,14 @@ export default {
           configs = await generateV2raySub(type, bugs, inconigtomode, tls, country, limit);
           break;
         case "/sub":
-          return new Response(await handleSubRequest(url.hostname), { headers: { 'Content-Type': 'text/html' } })
-          break;
+          return new Response(await handleSubRequest(url.hostname), { headers: { 'Content-Type': 'text/html' } });
         default:
-            const hostname = request.headers.get("Host");
-            const result = getAllConfig(hostname, await getProxyList(env, true));
-            return new Response(result, {
-              status: 200,
-              headers: { "Content-Type": "text/html;charset=utf-8" },
-            });
+          const hostname = request.headers.get("Host");
+          const result = getAllConfig(hostname, await getProxyList(env, true));
+          return new Response(result, {
+            status: 200,
+            headers: { "Content-Type": "text/html;charset=utf-8" },
+          });
       }
 
       return new Response(configs);

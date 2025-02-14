@@ -125,10 +125,10 @@ export default {
           return await websockerHandler(request);
         }
 
-        const ipPortMatch = cleanPath.match(/^(.+[:=/-]\d+)$/);
+        const ipPortMatch = cleanPath.match(/^(.+[^.\d\w]\d+)$/);
 
         if (ipPortMatch) {
-          proxyIP = ipPortMatch[1].replace(/[=/-]/g, ":");
+          proxyIP = ipPortMatch[1].replace(/[^.\d\w]+/g, ":");
           console.log(`Direct Proxy IP: ${proxyIP}`);
           return await websockerHandler(request, proxyIP);
         }

@@ -1987,7 +1987,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     - h3
     - http/1.1
   ws-opts:
-    path: /Free/inconigtoVPN/${proxyHost}=${proxyPort}
+    path: /Free/inconigtoVPN/${proxyHost}/${proxyPort}
     headers:
       Host: ${inconigtomode}
     max-early-data: 0
@@ -2015,7 +2015,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     - h3
     - http/1.1
   ws-opts:
-    path: /Free/inconigtoVPN/${proxyHost}=${proxyPort}
+    path: /Free/inconigtoVPN/${proxyHost}/${proxyPort}
     headers:
       Host: ${inconigtomode}
     max-early-data: 0
@@ -2041,7 +2041,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     tls: ${tls}
     skip-cert-verify: true
     host: ${inconigtomode}
-    path: /Free/inconigtoVPN/${proxyHost}=${proxyPort}
+    path: /Free/inconigtoVPN/${proxyHost}/${proxyPort}
     mux: false
   headers:
     custom: value
@@ -2063,7 +2063,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
   skip-cert-verify: true
   network: ws${snio}
   ws-opts:
-    path: /Free/inconigtoVPN/${proxyHost}=${proxyPort}
+    path: /Free/inconigtoVPN/${proxyHost}/${proxyPort}
     headers:
       Host: ${inconigtomode}
 - name: ${ispName}-[TR]-[InconigtoVpn]
@@ -2076,7 +2076,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
   network: ws
   sni: ${inconigtomode}
   ws-opts:
-    path: /Free/inconigtoVPN/${proxyHost}=${proxyPort}
+    path: /Free/inconigtoVPN/${proxyHost}/${proxyPort}
     headers:
       Host: ${inconigtomode}
 - name: ${ispName}-[SS]-[InconigtoVpn]
@@ -2092,7 +2092,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     tls: ${tls}
     skip-cert-verify: true
     host: ${inconigtomode}
-    path: /Free/inconigtoVPN/${proxyHost}=${proxyPort}
+    path: /Free/inconigtoVPN/${proxyHost}/${proxyPort}
     mux: false
     headers:
       custom: ${inconigtomode}`;
@@ -2529,7 +2529,7 @@ async function generateHusiSub(type, bug, inconigtomode, tls, country = null, li
           "Host": "${inconigtomode}"
         },
         "max_early_data": 0,
-        "path": "/${proxyHost}=${proxyPort}",
+        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
         "type": "ws"
       },
       "type": "vless",
@@ -2555,7 +2555,7 @@ async function generateHusiSub(type, bug, inconigtomode, tls, country = null, li
           "Host": "${inconigtomode}"
         },
         "max_early_data": 0,
-        "path": "/${proxyHost}=${proxyPort}",
+        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
         "type": "ws"
       },
       "type": "trojan"
@@ -2571,7 +2571,7 @@ async function generateHusiSub(type, bug, inconigtomode, tls, country = null, li
       "method": "none",
       "password": "${UUIDS}",
       "plugin": "v2ray-plugin",
-      "plugin_opts": "mux=0;path=/${proxyHost}=${proxyPort};host=${inconigtomode};tls=1"
+      "plugin_opts": "mux=0;path=/Free/inconigtoVPN/${proxyHost}/${proxyPort};host=${inconigtomode};tls=1"
     },`;
     } else if (type === 'mix') {
       bex += `        "${ispName}-[VL]-[InconigtoVpn]",\n        "${ispName}-[TR]-[InconigtoVpn]",\n        "${ispName}-[SS]-[InconigtoVpn]",\n`
@@ -2594,7 +2594,7 @@ async function generateHusiSub(type, bug, inconigtomode, tls, country = null, li
           "Host": "${inconigtomode}"
         },
         "max_early_data": 0,
-        "path": "/${proxyHost}=${proxyPort}",
+        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
         "type": "ws"
       },
       "type": "vless",
@@ -2617,7 +2617,7 @@ async function generateHusiSub(type, bug, inconigtomode, tls, country = null, li
           "Host": "${inconigtomode}"
         },
         "max_early_data": 0,
-        "path": "/${proxyHost}=${proxyPort}",
+        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
         "type": "ws"
       },
       "type": "trojan"
@@ -2630,7 +2630,7 @@ async function generateHusiSub(type, bug, inconigtomode, tls, country = null, li
       "method": "none",
       "password": "${UUIDS}",
       "plugin": "v2ray-plugin",
-      "plugin_opts": "mux=0;path=/${proxyHost}=${proxyPort};host=${inconigtomode};tls=1"
+      "plugin_opts": "mux=0;path=/Free/inconigtoVPN/${proxyHost}/${proxyPort};host=${inconigtomode};tls=1"
     },`;
     }
   }
@@ -2863,7 +2863,7 @@ async function generateSingboxSub(type, bug, inconigtomode, tls, country = null,
       },
       "transport": {
         "type": "ws",
-        "path": "/${proxyHost}=${proxyPort}",
+        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
         "headers": {
           "Host": "${inconigtomode}"
         },
@@ -2887,7 +2887,7 @@ async function generateSingboxSub(type, bug, inconigtomode, tls, country = null,
       },
       "transport": {
         "type": "ws",
-        "path": "/${proxyHost}=${proxyPort}",
+        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
         "headers": {
           "Host": "${inconigtomode}"
         },
@@ -2905,7 +2905,7 @@ async function generateSingboxSub(type, bug, inconigtomode, tls, country = null,
       "method": "none",
       "password": "${UUIDS}",
       "plugin": "v2ray-plugin",
-      "plugin_opts": "mux=0;path=/${proxyHost}=${proxyPort};host=${inconigtomode};tls=1"
+      "plugin_opts": "mux=0;path=/Free/inconigtoVPN/${proxyHost}/${proxyPort};host=${inconigtomode};tls=1"
     },`;
     } else if (type === 'mix') {
       bex += `        "${ispName} vless",\n        "${ispName} trojan",\n        "${ispName} ss",\n`
@@ -2923,7 +2923,7 @@ async function generateSingboxSub(type, bug, inconigtomode, tls, country = null,
       },
       "transport": {
         "type": "ws",
-        "path": "/${proxyHost}=${proxyPort}",
+        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
         "headers": {
           "Host": "${inconigtomode}"
         },
@@ -2944,7 +2944,7 @@ async function generateSingboxSub(type, bug, inconigtomode, tls, country = null,
       },
       "transport": {
         "type": "ws",
-        "path": "/${proxyHost}=${proxyPort}",
+        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
         "headers": {
           "Host": "${inconigtomode}"
         },
@@ -2959,7 +2959,7 @@ async function generateSingboxSub(type, bug, inconigtomode, tls, country = null,
       "method": "none",
       "password": "${UUIDS}",
       "plugin": "v2ray-plugin",
-      "plugin_opts": "mux=0;path=/${proxyHost}=${proxyPort};host=${inconigtomode};tls=1"
+      "plugin_opts": "mux=0;path=/Free/inconigtoVPN/${proxyHost}/${proxyPort};host=${inconigtomode};tls=1"
     },`;
     }
   }
@@ -3161,7 +3161,7 @@ async function generateNekoboxSub(type, bug, inconigtomode, tls, country = null,
           "Host": "${inconigtomode}"
         },
         "max_early_data": 0,
-        "path": "/${proxyHost}=${proxyPort}",
+        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
         "type": "ws"
       },
       "type": "vless",
@@ -3187,7 +3187,7 @@ async function generateNekoboxSub(type, bug, inconigtomode, tls, country = null,
           "Host": "${inconigtomode}"
         },
         "max_early_data": 0,
-        "path": "/${proxyHost}=${proxyPort}",
+        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
         "type": "ws"
       },
       "type": "trojan"
@@ -3203,7 +3203,7 @@ async function generateNekoboxSub(type, bug, inconigtomode, tls, country = null,
       "method": "none",
       "password": "${UUIDS}",
       "plugin": "v2ray-plugin",
-      "plugin_opts": "mux=0;path=/${proxyHost}=${proxyPort};host=${inconigtomode};tls=1"
+      "plugin_opts": "mux=0;path=/Free/inconigtoVPN/${proxyHost}/${proxyPort};host=${inconigtomode};tls=1"
     },`;
     } else if (type === 'mix') {
       bex += `        "${ispName}-[VL]-[InconigtoVpn]",\n        "${ispName}-[TR]-[InconigtoVpn]",\n        "${ispName}-[SS]-[InconigtoVpn]",\n`
@@ -3226,7 +3226,7 @@ async function generateNekoboxSub(type, bug, inconigtomode, tls, country = null,
           "Host": "${inconigtomode}"
         },
         "max_early_data": 0,
-        "path": "/${proxyHost}=${proxyPort}",
+        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
         "type": "ws"
       },
       "type": "vless",
@@ -3249,7 +3249,7 @@ async function generateNekoboxSub(type, bug, inconigtomode, tls, country = null,
           "Host": "${inconigtomode}"
         },
         "max_early_data": 0,
-        "path": "/${proxyHost}=${proxyPort}",
+        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
         "type": "ws"
       },
       "type": "trojan"
@@ -3262,7 +3262,7 @@ async function generateNekoboxSub(type, bug, inconigtomode, tls, country = null,
       "method": "none",
       "password": "${UUIDS}",
       "plugin": "v2ray-plugin",
-      "plugin_opts": "mux=0;path=/${proxyHost}=${proxyPort};host=${inconigtomode};tls=1"
+      "plugin_opts": "mux=0;path=/Free/inconigtoVPN/${proxyHost}/${proxyPort};host=${inconigtomode};tls=1"
     },`;
     }
   }

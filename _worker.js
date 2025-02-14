@@ -202,7 +202,7 @@ function getAllConfig(hostName, proxyList) {
     const pathcode = encodePath(proxyIP, proxyPort);
     const encodedCountry = encodeSpace(country);
     const encodedOrg = encodeSpace(org);
-    const clashpath = `/${proxyIP}-${proxyPort}`.replace(/\s+/g, '');
+    const clashpath = `/Free/inconigtoVPN/${proxyIP}-${proxyPort}`.replace(/\s+/g, '');
 
     const status = `${proxyIP}:${proxyPort}`;
     const vlessTls = `vless://${crypto.randomUUID()}@${hostName}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=${pathcode}#(${encodedCountry})${encodedOrg}-[Tls]-[VL]-[InconigtoVpn]`;

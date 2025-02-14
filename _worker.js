@@ -1,6 +1,7 @@
 import { connect } from "cloudflare:sockets";
 
 const DEFAULT_PROXY_BANK_URL = "https://raw.githubusercontent.com/InconigtoVPN/ProxyIP/refs/heads/main/proxyList.txt";
+const DEFAULT_PROXY_BANK_URL2 = "https://raw.githubusercontent.com/InconigtoVPN/InconigtoVPN/refs/heads/main/iplist.txt";
 
 // Global Variables
 let cachedProxyList = [];
@@ -1928,7 +1929,7 @@ const getEmojiFlag = (countryCode) => {
   );
 };
 async function generateClashSub(type, bug, inconigtomode, tls, country = null, limit = null) {
-  const proxyListResponse = await fetch(DEFAULT_PROXY_BANK_URL);
+  const proxyListResponse = await fetch(DEFAULT_PROXY_BANK_URL2);
   const proxyList = await proxyListResponse.text();
   let ips = proxyList
     .split('\n')
@@ -2101,7 +2102,7 @@ proxies:
 ${conf}`;
 }
 async function generateSurfboardSub(type, bug, inconigtomode, tls, country = null, limit = null) {
-  const proxyListResponse = await fetch(DEFAULT_PROXY_BANK_URL);
+  const proxyListResponse = await fetch(DEFAULT_PROXY_BANK_URL2);
   const proxyList = await proxyListResponse.text();
   let ips = proxyList
     .split('\n')
@@ -2470,7 +2471,7 @@ DOMAIN-SUFFIX,notes-analytics-events.apple.com, AdBlock
 FINAL,Select Group`;
 }
 async function generateHusiSub(type, bug, inconigtomode, tls, country = null, limit = null) {
-  const proxyListResponse = await fetch(DEFAULT_PROXY_BANK_URL);
+  const proxyListResponse = await fetch(DEFAULT_PROXY_BANK_URL2);
   const proxyList = await proxyListResponse.text();
   let ips = proxyList
     .split('\n')
@@ -2809,7 +2810,7 @@ ${conf}
 }`;
 }
 async function generateSingboxSub(type, bug, inconigtomode, tls, country = null, limit = null) {
-  const proxyListResponse = await fetch(DEFAULT_PROXY_BANK_URL);
+  const proxyListResponse = await fetch(DEFAULT_PROXY_BANK_URL2);
   const proxyList = await proxyListResponse.text();
   let ips = proxyList
     .split('\n')
@@ -3102,7 +3103,7 @@ ${conf}
 }`;
 }
 async function generateNekoboxSub(type, bug, inconigtomode, tls, country = null, limit = null) {
-  const proxyListResponse = await fetch(DEFAULT_PROXY_BANK_URL);
+  const proxyListResponse = await fetch(DEFAULT_PROXY_BANK_URL2);
   const proxyList = await proxyListResponse.text();
   let ips = proxyList
     .split('\n')
@@ -3432,7 +3433,7 @@ ${conf}
 }`;
 }
 async function generateV2rayngSub(type, bug, inconigtomode, tls, country = null, limit = null) {
-  const proxyListResponse = await fetch(DEFAULT_PROXY_BANK_URL);
+  const proxyListResponse = await fetch(DEFAULT_PROXY_BANK_URL2);
   const proxyList = await proxyListResponse.text();
   let ips = proxyList
     .split('\n')
@@ -3507,7 +3508,7 @@ async function generateV2rayngSub(type, bug, inconigtomode, tls, country = null,
   return base64Conf;
 }
 async function generateV2raySub(type, bug, inconigtomode, tls, country = null, limit = null) {
-  const proxyListResponse = await fetch(DEFAULT_PROXY_BANK_URL);
+  const proxyListResponse = await fetch(DEFAULT_PROXY_BANK_URL2);
   const proxyList = await proxyListResponse.text();
   let ips = proxyList
     .split('\n')

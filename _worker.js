@@ -199,7 +199,8 @@ function getAllConfig(hostName, proxyList) {
   };
 
   const proxyListElements = proxyList.map(({ proxyIP, proxyPort, country, org }, index) => {
-    const pathcode = encodePath(proxyIP, proxyPort);
+    const watermark = `%2FFree%2FinconigtoVPN`;
+    const pathcode = `${watermark}${encodePath(proxyIP, proxyPort)}`;
     const encodedCountry = encodeSpace(country);
     const encodedOrg = encodeSpace(org);
     const clashpath = `/Free/inconigtoVPN/${proxyIP}-${proxyPort}`.replace(/\s+/g, '');

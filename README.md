@@ -1,5 +1,9 @@
 # 🌐 InconigtoVPN
 
+<p align="center">
+  <img src="https://media.giphy.com/media/QTfX9Ejfra3ZmNxh6B/giphy.gif" width="200">
+</p>
+
 ## ⚡ Serverless VLESS | Trojan | Shadowsocks with URL Subscriptions
 
 InconigtoVPN adalah solusi VPN berbasis Cloudflare Workers yang memungkinkan koneksi aman dan cepat tanpa perlu server fisik. Dengan dukungan protokol **VLESS**, **Trojan**, dan **Shadowsocks**, kamu bisa menikmati kebebasan internet dengan performa tinggi dan latensi rendah.
@@ -8,19 +12,26 @@ InconigtoVPN adalah solusi VPN berbasis Cloudflare Workers yang memungkinkan kon
 
 Deploy dalam hitungan detik ke Cloudflare Workers tanpa perlu VPS atau server tambahan.
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/InconigtoVPN/InconigtoVPN)
+<p align="center">
+  <a href="https://deploy.workers.cloudflare.com/?url=https://github.com/InconigtoVPN/InconigtoVPN">
+    <img src="https://deploy.workers.cloudflare.com/button" alt="Deploy to Cloudflare Workers">
+  </a>
+</p>
 
 ## 🛠️ Features
-✅ **Multiple Protocols** - Mendukung **VLESS**, **Trojan**, dan **Shadowsocks**.
-✅ **Cloudflare Acceleration** - Performa tinggi dengan proteksi Cloudflare.
-✅ **Easy URL Subscription** - Integrasi mudah dengan berbagai klien VPN.
-✅ **Enhanced Privacy & Security** - Enkripsi canggih untuk menjaga privasi pengguna.
-
+✅ **Multiple Protocols** - Mendukung **VLESS**, **Trojan**, dan **Shadowsocks**.<br>
+✅ **Cloudflare Acceleration** - Performa tinggi dengan proteksi Cloudflare.<br>
+✅ **Easy URL Subscription** - Integrasi mudah dengan berbagai klien VPN.<br>
+✅ **Enhanced Privacy & Security** - Enkripsi canggih untuk menjaga privasi pengguna.<br>
 
 ## 📌 Disclaimer
 InconigtoVPN dibuat untuk tujuan edukasi dan riset. Pengguna bertanggung jawab penuh atas penggunaan layanan ini.
 
 ---
 
-🌎 **Stay Connected**
+<p align="center">
+  <img src="https://media.giphy.com/media/j2pWZpr5RlpCodOB0d/giphy.gif" width="150">
+</p>
+
+🌎 **Stay Connected**<br>
 📌 [GitHub Repo](https://github.com/InconigtoVPN/InconigtoVPN)

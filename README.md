@@ -1,7 +1,7 @@
 # 🌐 InconigtoVPN
 
 <p align="center">
-  <img src="https://media.giphy.com/media/QTfX9Ejfra3ZmNxh6B/giphy.gif" width="200">
+  <img src="https://media.giphy.com/media/3o7abldj0b3rxrZUxW/giphy.gif" width="200">
 </p>
 
 ## ⚡ Serverless VLESS | Trojan | Shadowsocks with URL Subscriptions
@@ -30,7 +30,7 @@ InconigtoVPN dibuat untuk tujuan edukasi dan riset. Pengguna bertanggung jawab p
 ---
 
 <p align="center">
-  <img src="https://media.giphy.com/media/j2pWZpr5RlpCodOB0d/giphy.gif" width="150">
+  <img src="https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif" width="150">
 </p>
 
 🌎 **Stay Connected**<br>

@@ -223,7 +223,7 @@ proxies:
   cipher: auto
   tls: true
   client-fingerprint: chrome
-  udp: true
+  udp: false
   skip-cert-verify: true
   network: ws
   servername: ${hostName}
@@ -252,7 +252,7 @@ proxies:
   password: ${crypto.randomUUID()}
   tls: true
   client-fingerprint: chrome
-  udp: true
+  udp: false
   skip-cert-verify: true
   network: ws
   sni: ${hostName}
@@ -282,7 +282,7 @@ proxies:
   password: ${crypto.randomUUID()}
   plugin: v2ray-plugin
   client-fingerprint: chrome
-  udp: true
+  udp: false
   plugin-opts:
     mode: websocket
     host: ${hostName}
@@ -1978,7 +1978,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
   type: vless
   uuid: ${UUIDS}${snioo}
   tls: ${tls}
-  udp: true
+  udp: false
   skip-cert-verify: true
   client-fingerprint: chrome
   network: ws${snio}
@@ -2006,7 +2006,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
   password: ${UUIDS}
   tls: true
   client-fingerprint: chrome
-  udp: true
+  udp: false
   skip-cert-verify: true
   network: ws
   sni: ${inconigtomode}
@@ -2033,7 +2033,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
   port: ${ports}
   cipher: none
   password: ${UUIDS}
-  udp: true
+  udp: false
   plugin: v2ray-plugin
   client-fingerprint: chrome
   plugin-opts:
@@ -2059,7 +2059,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
   uuid: ${UUIDS}
   cipher: auto
   tls: ${tls}
-  udp: true
+  udp: false
   skip-cert-verify: true
   network: ws${snio}
   ws-opts:
@@ -2071,7 +2071,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
   port: 443
   type: trojan
   password: ${UUIDS}
-  udp: true
+  udp: false
   skip-cert-verify: true
   network: ws
   sni: ${inconigtomode}
@@ -2085,7 +2085,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
   port: ${ports}
   cipher: none
   password: ${UUIDS}
-  udp: true
+  udp: false
   plugin: v2ray-plugin
   plugin-opts:
     mode: websocket

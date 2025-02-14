@@ -191,7 +191,7 @@ function getAllConfig(hostName, proxyList) {
   const encodePath = (proxyIP, proxyPort) => {
     // Remove spaces and then encode
     const cleanedProxyIP = proxyIP.trim(); // Remove leading and trailing spaces
-    return `%2F${encodeURIComponent(cleanedProxyIP)}%3D${encodeURIComponent(proxyPort)}`;
+    return `%2F${encodeURIComponent(cleanedProxyIP)}%2F${encodeURIComponent(proxyPort)}`;
   };
 
   const encodeSpace = (string) => {

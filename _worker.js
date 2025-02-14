@@ -203,7 +203,7 @@ function getAllConfig(hostName, proxyList) {
     const pathcode = `${watermark}${encodePath(proxyIP, proxyPort)}`;
     const encodedCountry = encodeSpace(country);
     const encodedOrg = encodeSpace(org);
-    const clashpath = `/Free/inconigtoVPN/${proxyIP}-${proxyPort}`.replace(/\s+/g, '');
+    const clashpath = `/Free/inconigtoVPN/${proxyIP}/${proxyPort}`.replace(/\s+/g, '');
 
     const status = `${proxyIP}:${proxyPort}`;
     const vlessTls = `vless://${crypto.randomUUID()}@${hostName}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=${pathcode}#(${encodedCountry})${encodedOrg}-[Tls]-[VL]-[InconigtoVpn]`;
@@ -1987,7 +1987,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     - h3
     - http/1.1
   ws-opts:
-    path: /${proxyHost}=${proxyPort}
+    path: /Free/inconigtoVPN/${proxyHost}=${proxyPort}
     headers:
       Host: ${inconigtomode}
     max-early-data: 0
@@ -2015,7 +2015,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     - h3
     - http/1.1
   ws-opts:
-    path: /${proxyHost}=${proxyPort}
+    path: /Free/inconigtoVPN/${proxyHost}=${proxyPort}
     headers:
       Host: ${inconigtomode}
     max-early-data: 0
@@ -2041,7 +2041,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     tls: ${tls}
     skip-cert-verify: true
     host: ${inconigtomode}
-    path: /${proxyHost}=${proxyPort}
+    path: /Free/inconigtoVPN/${proxyHost}=${proxyPort}
     mux: false
   headers:
     custom: value
@@ -2063,7 +2063,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
   skip-cert-verify: true
   network: ws${snio}
   ws-opts:
-    path: /${proxyHost}=${proxyPort}
+    path: /Free/inconigtoVPN/${proxyHost}=${proxyPort}
     headers:
       Host: ${inconigtomode}
 - name: ${ispName}-[TR]-[InconigtoVpn]
@@ -2076,7 +2076,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
   network: ws
   sni: ${inconigtomode}
   ws-opts:
-    path: /${proxyHost}=${proxyPort}
+    path: /Free/inconigtoVPN/${proxyHost}=${proxyPort}
     headers:
       Host: ${inconigtomode}
 - name: ${ispName}-[SS]-[InconigtoVpn]
@@ -2092,7 +2092,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     tls: ${tls}
     skip-cert-verify: true
     host: ${inconigtomode}
-    path: /${proxyHost}=${proxyPort}
+    path: /Free/inconigtoVPN/${proxyHost}=${proxyPort}
     mux: false
     headers:
       custom: ${inconigtomode}`;

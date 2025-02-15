@@ -19,6 +19,36 @@ let telegram = "Noir7R";
 const WS_READY_STATE_OPEN = 1;
 const WS_READY_STATE_CLOSING = 2;
 
+# async function getProxyList(env, forceReload = false) {
+#  try {
+#    if (!cachedProxyList.length || forceReload) {
+#      const proxyBankUrl = env.PROXY_BANK_URL || DEFAULT_PROXY_BANK_URL;
+#      const proxyBankResponse = await fetch(proxyBankUrl);
+#
+#      if (!proxyBankResponse.ok) {
+#        throw new Error(`Failed to fetch proxy list: ${proxyBankResponse.status}`);
+#      }
+#
+#      const proxyLines = (await proxyBankResponse.text()).split("\n").filter(Boolean);
+#      
+#      const uniqueSet = new Set();
+#      cachedProxyList = proxyLines.map((line) => {
+#        const [proxyIP, proxyPort, country, org] = line.split(",");
+#        if (!proxyIP || !proxyPort || !country || !org) return null;
+#
+#        const key = `${country}-${org}`;
+#        if (uniqueSet.has(key)) return null; // Skip duplicate country-org
+#
+#        uniqueSet.add(key);
+#        return { proxyIP, proxyPort, country, org };
+#      }).filter(Boolean); // Hapus entri null
+#    }
+#    return cachedProxyList;
+#  } catch (error) {
+#    console.error("Error fetching proxy list:", error);
+#    return [];
+#  }
+# }
 async function getProxyList(env, forceReload = false) {
   try {
     if (!cachedProxyList.length || forceReload) {
@@ -30,23 +60,15 @@ async function getProxyList(env, forceReload = false) {
       }
 
       const proxyLines = (await proxyBankResponse.text()).split("\n").filter(Boolean);
-      
-      const uniqueSet = new Set();
       cachedProxyList = proxyLines.map((line) => {
         const [proxyIP, proxyPort, country, org] = line.split(",");
-        if (!proxyIP || !proxyPort || !country || !org) return null;
-
-        const key = `${country}-${org}`;
-        if (uniqueSet.has(key)) return null; // Skip duplicate country-org
-
-        uniqueSet.add(key);
         return { proxyIP, proxyPort, country, org };
-      }).filter(Boolean); // Hapus entri null
+      });
     }
     return cachedProxyList;
   } catch (error) {
     console.error("Error fetching proxy list:", error);
-    return [];
+    return []; // Mengembalikan array kosong jika terjadi error
   }
 }
 

@@ -1,12 +1,18 @@
 import { connect } from "cloudflare:sockets";
-
+// list proxyIP untuk web
 const DEFAULT_PROXY_BANK_URL = "https://raw.githubusercontent.com/InconigtoVPN/ProxyIP/refs/heads/main/proxyList.txt";
+// list proxyIP untuk link subs
 const DEFAULT_PROXY_BANK_URL2 = "https://raw.githubusercontent.com/InconigtoVPN/InconigtoVPN/refs/heads/main/iplist.txt";
 
-// Global Variables
+// Global Variables yang bisa di edit
 let cachedProxyList = [];
 let proxyIP = "";
 let apiCheck = "https://ipcf.rmtq.fun/json/?ip=";
+
+// watermark path
+let pathinfo = "afrcloud";
+// nama web 
+let nameWEB = "AFR-CLOUD";
 
 // Constants
 const WS_READY_STATE_OPEN = 1;
@@ -96,12 +102,12 @@ export default {
       );
 
       if (upgradeHeader === "websocket") {
-        if (!url.pathname.startsWith("/Free/inconigtoVPN/")) {
+        if (!url.pathname.startsWith(`/${pathinfo}/`)) {
           console.log(`Blocked request (Invalid Path): ${url.pathname}`);
           return new Response(null, { status: 403 });
         }
 
-        const cleanPath = url.pathname.replace("/Free/inconigtoVPN/", "");
+        const cleanPath = url.pathname.replace(`/${pathinfo}/`, "");
 
         const pathMatch = cleanPath.match(/^([A-Z]{2})(\d+)?$/);
 
@@ -199,23 +205,23 @@ function getAllConfig(hostName, proxyList) {
   };
 
   const proxyListElements = proxyList.map(({ proxyIP, proxyPort, country, org }, index) => {
-    const watermark = `%2FFree%2FinconigtoVPN`;
+    const watermark = `/${pathinfo}`;
     const pathcode = `${watermark}${encodePath(proxyIP, proxyPort)}`;
     const encodedCountry = encodeSpace(country);
     const encodedOrg = encodeSpace(org);
-    const clashpath = `/Free/inconigtoVPN/${proxyIP}/${proxyPort}`.replace(/\s+/g, '');
+    const clashpath = `/${pathinfo}/${proxyIP}/${proxyPort}`.replace(/\s+/g, '');
 
     const status = `${proxyIP}:${proxyPort}`;
-    const vlessTls = `vless://${crypto.randomUUID()}@${hostName}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=${pathcode}#(${encodedCountry})${encodedOrg}-[Tls]-[VL]-[InconigtoVpn]`;
-    const vlessNTls = `vless://${crypto.randomUUID()}@${hostName}:80?encryption=none&security=none&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=${pathcode}#(${encodedCountry})${encodedOrg}-[NTls]-[VL]-[InconigtoVpn]`;
-    const trojanTls = `trojan://${crypto.randomUUID()}@${hostName}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=${pathcode}#(${encodedCountry})${encodedOrg}-[Tls]-[TR]-[InconigtoVpn]`;
-    const trojanNTls = `trojan://${crypto.randomUUID()}@${hostName}:80?encryption=none&security=none&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=${pathcode}#(${encodedCountry})${encodedOrg}-[NTls]-[TR]-[InconigtoVpn]`;
-    const ssTls = `ss://${btoa(`none:${crypto.randomUUID()}`)}@${hostName}:443?encryption=none&type=ws&host=${hostName}&path=${pathcode}&security=tls&sni=${hostName}#${encodedCountry}${encodedOrg}-[Tls]-[SS]-[InconigtoVpn]`;
-    const ssNTls = `ss://${btoa(`none:${crypto.randomUUID()}`)}@${hostName}:80?encryption=none&type=ws&host=${hostName}&path=${pathcode}&security=none&sni=${hostName}#${encodedCountry}${encodedOrg}-[NTls]-[SS]-[InconigtoVpn]`;
+    const vlessTls = `vless://${crypto.randomUUID()}@${hostName}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=${pathcode}#(${encodedCountry})${encodedOrg}-[Tls]-[VL]-[${nameWEB}]`;
+    const vlessNTls = `vless://${crypto.randomUUID()}@${hostName}:80?encryption=none&security=none&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=${pathcode}#(${encodedCountry})${encodedOrg}-[NTls]-[VL]-[${nameWEB}]`;
+    const trojanTls = `trojan://${crypto.randomUUID()}@${hostName}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=${pathcode}#(${encodedCountry})${encodedOrg}-[Tls]-[TR]-[${nameWEB}]`;
+    const trojanNTls = `trojan://${crypto.randomUUID()}@${hostName}:80?encryption=none&security=none&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=${pathcode}#(${encodedCountry})${encodedOrg}-[NTls]-[TR]-[${nameWEB}]`;
+    const ssTls = `ss://${btoa(`none:${crypto.randomUUID()}`)}@${hostName}:443?encryption=none&type=ws&host=${hostName}&path=${pathcode}&security=tls&sni=${hostName}#${encodedCountry}${encodedOrg}-[Tls]-[SS]-[${nameWEB}]`;
+    const ssNTls = `ss://${btoa(`none:${crypto.randomUUID()}`)}@${hostName}:80?encryption=none&type=ws&host=${hostName}&path=${pathcode}&security=none&sni=${hostName}#${encodedCountry}${encodedOrg}-[NTls]-[SS]-[${nameWEB}]`;
     const clashVLTls = `
 #InconigtoVPN
 proxies:
-- name: (${country}) ${org}-[Tls]-[VL]-[InconigtoVpn]
+- name: (${country}) ${org}-[Tls]-[VL]-[${nameWEB}]
   server: ${hostName}
   port: 443
   type: vless
@@ -245,7 +251,7 @@ proxies:
     const clashTRTls =`
 #InconigtoVPN
 proxies:      
-- name: (${country}) ${org}-[Tls]-[TR]-[InconigtoVpn]
+- name: (${country}) ${org}-[Tls]-[TR]-[${nameWEB}]
   server: ${hostName}
   port: 443
   type: trojan
@@ -274,7 +280,7 @@ proxies:
     const clashSSTls =`
 #InconigtoVPN
 proxies:
-- name: (${country}) ${org}-[Tls]-[SS]-[InconigtoVpn]
+- name: (${country}) ${org}-[Tls]-[SS]-[${nameWEB}]
   server: ${hostName}
   port: 443
   type: ss
@@ -296,10 +302,7 @@ proxies:
     v2ray-http-upgrade: false
     v2ray-http-upgrade-fast-open: false
     `;
-    const escapedClashSSTls = clashSSTls.replace(/\n/g, '\\n').replace(/"/g, '\\"');
-    const escapedClashVLTls = clashVLTls.replace(/\n/g, '\\n').replace(/"/g, '\\"');
-    const escapedClashTRTls = clashTRTls.replace(/\n/g, '\\n').replace(/"/g, '\\"');
-    
+
     // Combine all configurations into one string
     const allconfigs = [
       ssTls,
@@ -316,7 +319,7 @@ proxies:
     
     return `
       <div class="content ${index === 0 ? "active" : ""}">
-        <h2>Inconigto-VPN</h2>
+        <h2>${nameWEB}</h2>
         <hr class="config-divider" />
         <h2>VLESS TROJAN SHADOWSOCKS</h2>
         <h2>CloudFlare</h2>
@@ -377,29 +380,29 @@ proxies:
       <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-      <title>Inconigto-VPN | VPN Tunnel | CloudFlare</title>
+      <title>${nameWEB} | VPN Tunnel | CloudFlare</title>
       
       <!-- SEO Meta Tags -->
-      <meta name="description" content="Akun Vless Gratis. Inconigto-VPN offers free Vless accounts with Cloudflare and Trojan support. Secure and fast VPN tunnel services.">
-      <meta name="keywords" content="Inconigto-VPN, Free Vless, Vless CF, Trojan CF, Cloudflare, VPN Tunnel, Akun Vless Gratis">
-      <meta name="author" content="Inconigto-VPN">
+      <meta name="description" content="Akun Vless Gratis. ${nameWEB} offers free Vless accounts with Cloudflare and Trojan support. Secure and fast VPN tunnel services.">
+      <meta name="keywords" content="${nameWEB}, Free Vless, Vless CF, Trojan CF, Cloudflare, VPN Tunnel, Akun Vless Gratis">
+      <meta name="author" content="${nameWEB}">
       <meta name="robots" content="index, follow"> <!-- Enable search engines to index the page -->
       <meta name="robots" content="noarchive"> <!-- Prevent storing a cached version of the page -->
       <meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1"> <!-- Improve visibility in search snippets -->
       
       <!-- Social Media Meta Tags -->
-      <meta property="og:title" content="Inconigto-VPN | Free Vless & Trojan Accounts">
-      <meta property="og:description" content="Inconigto-VPN provides free Vless accounts and VPN tunnels via Cloudflare. Secure, fast, and easy setup.">
+      <meta property="og:title" content="${nameWEB} | Free Vless & Trojan Accounts">
+      <meta property="og:description" content="${nameWEB} provides free Vless accounts and VPN tunnels via Cloudflare. Secure, fast, and easy setup.">
       <meta property="og:image" content="https://raw.githubusercontent.com/akulelaki696/bg/refs/heads/main/20250106_010158.jpg"> <!-- Image to appear in previews -->
       <meta property="og:url" content="https://vip.rtmq.fun"> <!-- Your website URL -->
       <meta property="og:type" content="website">
-      <meta property="og:site_name" content="Inconigto-VPN">
+      <meta property="og:site_name" content="${nameWEB}">
       <meta property="og:locale" content="en_US"> <!-- Set to your language/locale -->
       
       <!-- Twitter Card Meta Tags -->
       <meta name="twitter:card" content="summary_large_image">
-      <meta name="twitter:title" content="Inconigto-VPN | Free Vless & Trojan Accounts">
-      <meta name="twitter:description" content="Get free Vless accounts and fast VPN services via Cloudflare with Inconigto-VPN. Privacy and security guaranteed.">
+      <meta name="twitter:title" content="${nameWEB} | Free Vless & Trojan Accounts">
+      <meta name="twitter:description" content="Get free Vless accounts and fast VPN services via Cloudflare with ${nameWEB}. Privacy and security guaranteed.">
       <meta name="twitter:image" content="https://raw.githubusercontent.com/akulelaki696/bg/refs/heads/main/20250106_010158.jpg"> <!-- Image for Twitter -->
       <meta name="twitter:site" content="@InconigtoVPN">
       <meta name="twitter:creator" content="@InconigtoVPN">
@@ -413,13 +416,13 @@ proxies:
       <!-- Additional Meta Tags -->
       <meta name="theme-color" content="#000000"> <!-- Mobile browser theme color -->
       <meta name="format-detection" content="telephone=no"> <!-- Prevent automatic phone number detection -->
-      <meta name="generator" content="Inconigto-VPN">
+      <meta name="generator" content="${nameWEB}">
       <meta name="google-site-verification" content="google-site-verification-code"> <!-- Google verification -->
       
       <!-- Open Graph Tags for Rich Links -->
       <meta property="og:image:width" content="1200">
       <meta property="og:image:height" content="630">
-      <meta property="og:image:alt" content="Inconigto-VPN Image Preview">
+      <meta property="og:image:alt" content="${nameWEB} Image Preview">
       
       <!-- Favicon and Icon links -->
       <link rel="icon" href="https://raw.githubusercontent.com/AFRcloud/BG/main/icons8-film-noir-80.png" type="image/png">
@@ -672,7 +675,7 @@ proxies:
       <div class="tab-content">${proxyListElements}</div>
     </div>
     <br>
-    <a href="https://t.me/@InconigtoVPN" class="author-link" target="_blank">Inconigto-VPN</a>
+    <a href="https://t.me/@InconigtoVPN" class="author-link" target="_blank">${nameWEB}</a>
     <script>
   function filterTabs() {
     const query = document.getElementById('search').value.toLowerCase();
@@ -778,33 +781,31 @@ async function handleSubRequest(hostnem) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<html>
-<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Inconigto-VPN | VPN Tunnel | CloudFlare</title>
+<title>${nameWEB} | VPN Tunnel | CloudFlare</title>
 
 <!-- SEO Meta Tags -->
-<meta name="description" content="Akun Vless Gratis. Inconigto-VPN offers free Vless accounts with Cloudflare and Trojan support. Secure and fast VPN tunnel services.">
-<meta name="keywords" content="Inconigto-VPN, Free Vless, Vless CF, Trojan CF, Cloudflare, VPN Tunnel, Akun Vless Gratis">
-<meta name="author" content="Inconigto-VPN">
+<meta name="description" content="Akun Vless Gratis. ${nameWEB} offers free Vless accounts with Cloudflare and Trojan support. Secure and fast VPN tunnel services.">
+<meta name="keywords" content="${nameWEB}, Free Vless, Vless CF, Trojan CF, Cloudflare, VPN Tunnel, Akun Vless Gratis">
+<meta name="author" content="${nameWEB}">
 <meta name="robots" content="index, follow"> <!-- Enable search engines to index the page -->
 <meta name="robots" content="noarchive"> <!-- Prevent storing a cached version of the page -->
 <meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1"> <!-- Improve visibility in search snippets -->
 
 <!-- Social Media Meta Tags -->
-<meta property="og:title" content="Inconigto-VPN | Free Vless & Trojan Accounts">
-<meta property="og:description" content="Inconigto-VPN provides free Vless accounts and VPN tunnels via Cloudflare. Secure, fast, and easy setup.">
+<meta property="og:title" content="${nameWEB} | Free Vless & Trojan Accounts">
+<meta property="og:description" content="${nameWEB} provides free Vless accounts and VPN tunnels via Cloudflare. Secure, fast, and easy setup.">
 <meta property="og:image" content="https://raw.githubusercontent.com/akulelaki696/bg/refs/heads/main/20250106_010158.jpg"> <!-- Image to appear in previews -->
 <meta property="og:url" content="https://vip.rtmq.fun"> <!-- Your website URL -->
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Inconigto-VPN">
+<meta property="og:site_name" content="${nameWEB}">
 <meta property="og:locale" content="en_US"> <!-- Set to your language/locale -->
 
 <!-- Twitter Card Meta Tags -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Inconigto-VPN | Free Vless & Trojan Accounts">
-<meta name="twitter:description" content="Get free Vless accounts and fast VPN services via Cloudflare with Inconigto-VPN. Privacy and security guaranteed.">
+<meta name="twitter:title" content="${nameWEB} | Free Vless & Trojan Accounts">
+<meta name="twitter:description" content="Get free Vless accounts and fast VPN services via Cloudflare with ${nameWEB}. Privacy and security guaranteed.">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/akulelaki696/bg/refs/heads/main/20250106_010158.jpg"> <!-- Image for Twitter -->
 <meta name="twitter:site" content="@InconigtoVPN">
 <meta name="twitter:creator" content="@InconigtoVPN">
@@ -818,13 +819,13 @@ async function handleSubRequest(hostnem) {
 <!-- Additional Meta Tags -->
 <meta name="theme-color" content="#000000"> <!-- Mobile browser theme color -->
 <meta name="format-detection" content="telephone=no"> <!-- Prevent automatic phone number detection -->
-<meta name="generator" content="Inconigto-VPN">
+<meta name="generator" content="${nameWEB}">
 <meta name="google-site-verification" content="google-site-verification-code"> <!-- Google verification -->
 
 <!-- Open Graph Tags for Rich Links -->
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Inconigto-VPN Image Preview">
+<meta property="og:image:alt" content="${nameWEB} Image Preview">
 
 <!-- Favicon and Icon links -->
 <link rel="icon" href="https://raw.githubusercontent.com/AFRcloud/BG/main/icons8-film-noir-80.png" type="image/png">
@@ -1971,7 +1972,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     if (type === 'vless') {
       bex += `  - ${ispName}\n`
       conf += `
-- name: ${ispName}-[VL]-[InconigtoVpn]
+- name: ${ispName}-[VL]-[${nameWEB}]
   server: ${bug}
   port: ${ports}
   type: vless
@@ -1986,7 +1987,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     - h3
     - http/1.1
   ws-opts:
-    path: /Free/inconigtoVPN/${proxyHost}/${proxyPort}
+    path: /${pathinfo}/${proxyHost}/${proxyPort}
     headers:
       Host: ${inconigtomode}
     max-early-data: 0
@@ -1998,7 +1999,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     } else if (type === 'trojan') {
       bex += `  - ${ispName}\n`
       conf += `
-- name: ${ispName}-[TR]-[InconigtoVpn]
+- name: ${ispName}-[TR]-[${nameWEB}]
   server: ${bug}
   port: 443
   type: trojan
@@ -2014,7 +2015,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     - h3
     - http/1.1
   ws-opts:
-    path: /Free/inconigtoVPN/${proxyHost}/${proxyPort}
+    path: /${pathinfo}/${proxyHost}/${proxyPort}
     headers:
       Host: ${inconigtomode}
     max-early-data: 0
@@ -2026,7 +2027,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     } else if (type === 'shadowsocks') {
       bex += `  - ${ispName}\n`
       conf += `
-- name: ${ispName}-[SS]-[InconigtoVpn]
+- name: ${ispName}-[SS]-[${nameWEB}]
   type: ss
   server: ${bug}
   port: ${ports}
@@ -2040,7 +2041,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     tls: ${tls}
     skip-cert-verify: true
     host: ${inconigtomode}
-    path: /Free/inconigtoVPN/${proxyHost}/${proxyPort}
+    path: /${pathinfo}/${proxyHost}/${proxyPort}
     mux: false
   headers:
     custom: value
@@ -2049,9 +2050,9 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     v2ray-http-upgrade-fast-open: false
     `;
     } else if (type === 'mix') {
-      bex += `  - ${ispName}-[VL]-[InconigtoVpn]\n  - ${ispName}-[TR]-[InconigtoVpn]\n  - ${ispName}-[SS]-[InconigtoVpn]\n`;
+      bex += `  - ${ispName}-[VL]-[${nameWEB}]\n  - ${ispName}-[TR]-[${nameWEB}]\n  - ${ispName}-[SS]-[${nameWEB}]\n`;
       conf += `
-- name: ${ispName}-[VL]-[InconigtoVpn]
+- name: ${ispName}-[VL]-[${nameWEB}]
   server: ${bug}
   port: ${ports}
   type: vless
@@ -2062,10 +2063,10 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
   skip-cert-verify: true
   network: ws${snio}
   ws-opts:
-    path: /Free/inconigtoVPN/${proxyHost}/${proxyPort}
+    path: /${pathinfo}/${proxyHost}/${proxyPort}
     headers:
       Host: ${inconigtomode}
-- name: ${ispName}-[TR]-[InconigtoVpn]
+- name: ${ispName}-[TR]-[${nameWEB}]
   server: ${bug}
   port: 443
   type: trojan
@@ -2075,10 +2076,10 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
   network: ws
   sni: ${inconigtomode}
   ws-opts:
-    path: /Free/inconigtoVPN/${proxyHost}/${proxyPort}
+    path: /${pathinfo}/${proxyHost}/${proxyPort}
     headers:
       Host: ${inconigtomode}
-- name: ${ispName}-[SS]-[InconigtoVpn]
+- name: ${ispName}-[SS]-[${nameWEB}]
   type: ss
   server: ${bug}
   port: ${ports}
@@ -2091,7 +2092,7 @@ async function generateClashSub(type, bug, inconigtomode, tls, country = null, l
     tls: ${tls}
     skip-cert-verify: true
     host: ${inconigtomode}
-    path: /Free/inconigtoVPN/${proxyHost}/${proxyPort}
+    path: /${pathinfo}/${proxyHost}/${proxyPort}
     mux: false
     headers:
       custom: ${inconigtomode}`;
@@ -2521,14 +2522,14 @@ async function generateHusiSub(type, bug, inconigtomode, tls, country = null, li
       "packet_encoding": "xudp",
       "server": "${bug}",
       "server_port": ${ports},
-      "tag": "${ispName}-[VL]-[InconigtoVpn]",${snio}
+      "tag": "${ispName}-[VL]-[${nameWEB}]",${snio}
       "transport": {
         "early_data_header_name": "Sec-WebSocket-Protocol",
         "headers": {
           "Host": "${inconigtomode}"
         },
         "max_early_data": 0,
-        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
+        "path": "/${pathinfo}/${proxyHost}/${proxyPort}",
         "type": "ws"
       },
       "type": "vless",
@@ -2547,14 +2548,14 @@ async function generateHusiSub(type, bug, inconigtomode, tls, country = null, li
       "password": "${UUIDS}",
       "server": "${bug}",
       "server_port": ${ports},
-      "tag": "${ispName}-[TR]-[InconigtoVpn]",${snio}
+      "tag": "${ispName}-[TR]-[${nameWEB}]",${snio}
       "transport": {
         "early_data_header_name": "Sec-WebSocket-Protocol",
         "headers": {
           "Host": "${inconigtomode}"
         },
         "max_early_data": 0,
-        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
+        "path": "/${pathinfo}/${proxyHost}/${proxyPort}",
         "type": "ws"
       },
       "type": "trojan"
@@ -2564,16 +2565,16 @@ async function generateHusiSub(type, bug, inconigtomode, tls, country = null, li
       conf += `
     {
       "type": "shadowsocks",
-      "tag": "${ispName}-[SS]-[InconigtoVpn]",
+      "tag": "${ispName}-[SS]-[${nameWEB}]",
       "server": "${bug}",
       "server_port": 443,
       "method": "none",
       "password": "${UUIDS}",
       "plugin": "v2ray-plugin",
-      "plugin_opts": "mux=0;path=/Free/inconigtoVPN/${proxyHost}/${proxyPort};host=${inconigtomode};tls=1"
+      "plugin_opts": "mux=0;path=/${pathinfo}/${proxyHost}/${proxyPort};host=${inconigtomode};tls=1"
     },`;
     } else if (type === 'mix') {
-      bex += `        "${ispName}-[VL]-[InconigtoVpn]",\n        "${ispName}-[TR]-[InconigtoVpn]",\n        "${ispName}-[SS]-[InconigtoVpn]",\n`
+      bex += `        "${ispName}-[VL]-[${nameWEB}]",\n        "${ispName}-[TR]-[${nameWEB}]",\n        "${ispName}-[SS]-[${nameWEB}]",\n`
       conf += `
     {
       "domain_strategy": "ipv4_only",
@@ -2586,14 +2587,14 @@ async function generateHusiSub(type, bug, inconigtomode, tls, country = null, li
       "packet_encoding": "xudp",
       "server": "${bug}",
       "server_port": ${ports},
-      "tag": "${ispName}-[VL]-[InconigtoVpn]",${snio}
+      "tag": "${ispName}-[VL]-[${nameWEB}]",${snio}
       "transport": {
         "early_data_header_name": "Sec-WebSocket-Protocol",
         "headers": {
           "Host": "${inconigtomode}"
         },
         "max_early_data": 0,
-        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
+        "path": "/${pathinfo}/${proxyHost}/${proxyPort}",
         "type": "ws"
       },
       "type": "vless",
@@ -2609,27 +2610,27 @@ async function generateHusiSub(type, bug, inconigtomode, tls, country = null, li
       "password": "${UUIDS}",
       "server": "${bug}",
       "server_port": ${ports},
-      "tag": "${ispName}-[TR]-[InconigtoVpn]",${snio}
+      "tag": "${ispName}-[TR]-[${nameWEB}]",${snio}
       "transport": {
         "early_data_header_name": "Sec-WebSocket-Protocol",
         "headers": {
           "Host": "${inconigtomode}"
         },
         "max_early_data": 0,
-        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
+        "path": "/${pathinfo}/${proxyHost}/${proxyPort}",
         "type": "ws"
       },
       "type": "trojan"
     },
     {
       "type": "shadowsocks",
-      "tag": "${ispName}-[SS]-[InconigtoVpn]",
+      "tag": "${ispName}-[SS]-[${nameWEB}]",
       "server": "${bug}",
       "server_port": 443,
       "method": "none",
       "password": "${UUIDS}",
       "plugin": "v2ray-plugin",
-      "plugin_opts": "mux=0;path=/Free/inconigtoVPN/${proxyHost}/${proxyPort};host=${inconigtomode};tls=1"
+      "plugin_opts": "mux=0;path=/${pathinfo}/${proxyHost}/${proxyPort};host=${inconigtomode};tls=1"
     },`;
     }
   }
@@ -2851,7 +2852,7 @@ async function generateSingboxSub(type, bug, inconigtomode, tls, country = null,
       conf += `
     {
       "type": "vless",
-      "tag": "${ispName}-[VL]-[InconigtoVpn]",
+      "tag": "${ispName}-[VL]-[${nameWEB}]",
       "domain_strategy": "ipv4_only",
       "server": "${bug}",
       "server_port": ${ports},
@@ -2862,7 +2863,7 @@ async function generateSingboxSub(type, bug, inconigtomode, tls, country = null,
       },
       "transport": {
         "type": "ws",
-        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
+        "path": "/${pathinfo}/${proxyHost}/${proxyPort}",
         "headers": {
           "Host": "${inconigtomode}"
         },
@@ -2875,7 +2876,7 @@ async function generateSingboxSub(type, bug, inconigtomode, tls, country = null,
       conf += `
     {
       "type": "trojan",
-      "tag": "${ispName}-[TR]-[InconigtoVpn]",
+      "tag": "${ispName}-[TR]-[${nameWEB}]",
       "domain_strategy": "ipv4_only",
       "server": "${bug}",
       "server_port": ${ports},
@@ -2886,7 +2887,7 @@ async function generateSingboxSub(type, bug, inconigtomode, tls, country = null,
       },
       "transport": {
         "type": "ws",
-        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
+        "path": "/${pathinfo}/${proxyHost}/${proxyPort}",
         "headers": {
           "Host": "${inconigtomode}"
         },
@@ -2898,20 +2899,20 @@ async function generateSingboxSub(type, bug, inconigtomode, tls, country = null,
       conf += `
     {
       "type": "shadowsocks",
-      "tag": "${ispName}-[SS]-[InconigtoVpn]",
+      "tag": "${ispName}-[SS]-[${nameWEB}]",
       "server": "${bug}",
       "server_port": 443,
       "method": "none",
       "password": "${UUIDS}",
       "plugin": "v2ray-plugin",
-      "plugin_opts": "mux=0;path=/Free/inconigtoVPN/${proxyHost}/${proxyPort};host=${inconigtomode};tls=1"
+      "plugin_opts": "mux=0;path=/${pathinfo}/${proxyHost}/${proxyPort};host=${inconigtomode};tls=1"
     },`;
     } else if (type === 'mix') {
       bex += `        "${ispName} vless",\n        "${ispName} trojan",\n        "${ispName} ss",\n`
       conf += `
     {
       "type": "vless",
-      "tag": "${ispName}-[VL]-[InconigtoVpn]",
+      "tag": "${ispName}-[VL]-[${nameWEB}]",
       "domain_strategy": "ipv4_only",
       "server": "${bug}",
       "server_port": ${ports},
@@ -2922,7 +2923,7 @@ async function generateSingboxSub(type, bug, inconigtomode, tls, country = null,
       },
       "transport": {
         "type": "ws",
-        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
+        "path": "/${pathinfo}/${proxyHost}/${proxyPort}",
         "headers": {
           "Host": "${inconigtomode}"
         },
@@ -2932,7 +2933,7 @@ async function generateSingboxSub(type, bug, inconigtomode, tls, country = null,
     },
     {
       "type": "trojan",
-      "tag": "${ispName}-[TR]-[InconigtoVpn]",
+      "tag": "${ispName}-[TR]-[${nameWEB}]",
       "domain_strategy": "ipv4_only",
       "server": "${bug}",
       "server_port": ${ports},
@@ -2943,7 +2944,7 @@ async function generateSingboxSub(type, bug, inconigtomode, tls, country = null,
       },
       "transport": {
         "type": "ws",
-        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
+        "path": "/${pathinfo}/${proxyHost}/${proxyPort}",
         "headers": {
           "Host": "${inconigtomode}"
         },
@@ -2952,13 +2953,13 @@ async function generateSingboxSub(type, bug, inconigtomode, tls, country = null,
     },
     {
       "type": "shadowsocks",
-      "tag": "${ispName}-[SS]-[InconigtoVpn]",
+      "tag": "${ispName}-[SS]-[${nameWEB}]",
       "server": "${bug}",
       "server_port": 443,
       "method": "none",
       "password": "${UUIDS}",
       "plugin": "v2ray-plugin",
-      "plugin_opts": "mux=0;path=/Free/inconigtoVPN/${proxyHost}/${proxyPort};host=${inconigtomode};tls=1"
+      "plugin_opts": "mux=0;path=/${pathinfo}/${proxyHost}/${proxyPort};host=${inconigtomode};tls=1"
     },`;
     }
   }
@@ -3153,14 +3154,14 @@ async function generateNekoboxSub(type, bug, inconigtomode, tls, country = null,
       "packet_encoding": "xudp",
       "server": "${bug}",
       "server_port": ${ports},
-      "tag": "${ispName}-[VL]-[InconigtoVpn]",${snio}
+      "tag": "${ispName}-[VL]-[${nameWEB}]",${snio}
       "transport": {
         "early_data_header_name": "Sec-WebSocket-Protocol",
         "headers": {
           "Host": "${inconigtomode}"
         },
         "max_early_data": 0,
-        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
+        "path": "/${pathinfo}/${proxyHost}/${proxyPort}",
         "type": "ws"
       },
       "type": "vless",
@@ -3179,14 +3180,14 @@ async function generateNekoboxSub(type, bug, inconigtomode, tls, country = null,
       "password": "${UUIDS}",
       "server": "${bug}",
       "server_port": ${ports},
-      "tag": "${ispName}-[TR]-[InconigtoVpn]",${snio}
+      "tag": "${ispName}-[TR]-[${nameWEB}]",${snio}
       "transport": {
         "early_data_header_name": "Sec-WebSocket-Protocol",
         "headers": {
           "Host": "${inconigtomode}"
         },
         "max_early_data": 0,
-        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
+        "path": "/${pathinfo}/${proxyHost}/${proxyPort}",
         "type": "ws"
       },
       "type": "trojan"
@@ -3196,16 +3197,16 @@ async function generateNekoboxSub(type, bug, inconigtomode, tls, country = null,
       conf += `
     {
       "type": "shadowsocks",
-      "tag": "${ispName}-[SS]-[InconigtoVpn]",
+      "tag": "${ispName}-[SS]-[${nameWEB}]",
       "server": "${bug}",
       "server_port": 443,
       "method": "none",
       "password": "${UUIDS}",
       "plugin": "v2ray-plugin",
-      "plugin_opts": "mux=0;path=/Free/inconigtoVPN/${proxyHost}/${proxyPort};host=${inconigtomode};tls=1"
+      "plugin_opts": "mux=0;path=/${pathinfo}/${proxyHost}/${proxyPort};host=${inconigtomode};tls=1"
     },`;
     } else if (type === 'mix') {
-      bex += `        "${ispName}-[VL]-[InconigtoVpn]",\n        "${ispName}-[TR]-[InconigtoVpn]",\n        "${ispName}-[SS]-[InconigtoVpn]",\n`
+      bex += `        "${ispName}-[VL]-[${nameWEB}]",\n        "${ispName}-[TR]-[${nameWEB}]",\n        "${ispName}-[SS]-[${nameWEB}]",\n`
       conf += `
     {
       "domain_strategy": "ipv4_only",
@@ -3218,14 +3219,14 @@ async function generateNekoboxSub(type, bug, inconigtomode, tls, country = null,
       "packet_encoding": "xudp",
       "server": "${bug}",
       "server_port": ${ports},
-      "tag": "${ispName}-[VL]-[InconigtoVpn]",${snio}
+      "tag": "${ispName}-[VL]-[${nameWEB}]",${snio}
       "transport": {
         "early_data_header_name": "Sec-WebSocket-Protocol",
         "headers": {
           "Host": "${inconigtomode}"
         },
         "max_early_data": 0,
-        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
+        "path": "/${pathinfo}/${proxyHost}/${proxyPort}",
         "type": "ws"
       },
       "type": "vless",
@@ -3241,27 +3242,27 @@ async function generateNekoboxSub(type, bug, inconigtomode, tls, country = null,
       "password": "${UUIDS}",
       "server": "${bug}",
       "server_port": ${ports},
-      "tag": "${ispName}-[TR]-[InconigtoVpn]",${snio}
+      "tag": "${ispName}-[TR]-[${nameWEB}]",${snio}
       "transport": {
         "early_data_header_name": "Sec-WebSocket-Protocol",
         "headers": {
           "Host": "${inconigtomode}"
         },
         "max_early_data": 0,
-        "path": "/Free/inconigtoVPN/${proxyHost}/${proxyPort}",
+        "path": "/${pathinfo}/${proxyHost}/${proxyPort}",
         "type": "ws"
       },
       "type": "trojan"
     },
     {
       "type": "shadowsocks",
-      "tag": "${ispName}-[SS]-[InconigtoVpn]",
+      "tag": "${ispName}-[SS]-[${nameWEB}]",
       "server": "${bug}",
       "server_port": 443,
       "method": "none",
       "password": "${UUIDS}",
       "plugin": "v2ray-plugin",
-      "plugin_opts": "mux=0;path=/Free/inconigtoVPN/${proxyHost}/${proxyPort};host=${inconigtomode};tls=1"
+      "plugin_opts": "mux=0;path=//${pathinfo}/${proxyHost}/${proxyPort};host=${inconigtomode};tls=1"
     },`;
     }
   }
@@ -3474,31 +3475,31 @@ async function generateV2rayngSub(type, bug, inconigtomode, tls, country = null,
 
     if (type === 'vless') {
       if (tls) {
-        conf += `vless://${UUIDS}\u0040${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${ispInfo}-[VL]-[InconigtoVpn]\n`;
+        conf += `vless://${UUIDS}\u0040${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${ispInfo}-[VL]-[${nameWEB}]\n`;
       } else {
-        conf += `vless://${UUIDS}\u0040${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${ispInfo}-[VL]-[InconigtoVpn]\n`;
+        conf += `vless://${UUIDS}\u0040${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${ispInfo}-[VL]-[${nameWEB}]\n`;
       }
     } else if (type === 'trojan') {
       if (tls) {
-        conf += `trojan://${UUIDS}\u0040${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${ispInfo}-[TR]-[InconigtoVpn]\n`;
+        conf += `trojan://${UUIDS}\u0040${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${ispInfo}-[TR]-[${nameWEB}]\n`;
       } else {
-        conf += `trojan://${UUIDS}\u0040${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${ispInfo}-[TR]-[InconigtoVpn]\n`;
+        conf += `trojan://${UUIDS}\u0040${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${ispInfo}-[TR]-[${nameWEB}]\n`;
       }
     } else if (type === 'shadowsocks') {
       if (tls) {
-        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:443?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=tls&sni=${inconigtomode}#${ispInfo}-[ss]-[InconigtoVpn]\n`;
+        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:443?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=tls&sni=${inconigtomode}#${ispInfo}-[ss]-[${nameWEB}]\n`;
       } else {
-        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:80?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&sni=${inconigtomode}#${ispInfo}-[SS]-[InconigtoVpn]\n`;
+        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:80?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&sni=${inconigtomode}#${ispInfo}-[SS]-[${nameWEB}]\n`;
       }
     } else if (type === 'mix') {
       if (tls) {
-        conf += `vless://${UUIDS}\u0040${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${ispInfo}-[VL]-[InconigtoVpn]\n`;
-        conf += `trojan://${UUIDS}\u0040${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${ispInfo}-[TR]-[InconigtoVpn]\n`;
-        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:443?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=tls&sni=${inconigtomode}#${ispInfo}-[SS]-[InconigtoVpn]\n`;
+        conf += `vless://${UUIDS}\u0040${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${ispInfo}-[VL]-[${nameWEB}]\n`;
+        conf += `trojan://${UUIDS}\u0040${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${ispInfo}-[TR]-[${nameWEB}]\n`;
+        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:443?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=tls&sni=${inconigtomode}#${ispInfo}-[SS]-[${nameWEB}]\n`;
       } else {
-        conf += `vless://${UUIDS}\u0040${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${ispInfo}-[VL]-[InconigtoVpn]\n`;
-        conf += `trojan://${UUIDS}\u0040${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${ispInfo}-[TR]-[InconigtoVpn]\n`;
-        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:80?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&sni=${inconigtomode}#${ispInfo}-[SS]-[InconigtoVpn]\n`;
+        conf += `vless://${UUIDS}\u0040${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${ispInfo}-[VL]-[${nameWEB}]\n`;
+        conf += `trojan://${UUIDS}\u0040${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${ispInfo}-[TR]-[${nameWEB}]\n`;
+        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:80?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&sni=${inconigtomode}#${ispInfo}-[SS]-[${nameWEB}]\n`;
       }
     }
   }
@@ -3540,31 +3541,31 @@ async function generateV2raySub(type, bug, inconigtomode, tls, country = null, l
     const information = encodeURIComponent(`${emojiFlag} (${line.split(',')[2]}) ${line.split(',')[3]}`);
     if (type === 'vless') {
       if (tls) {
-        conf += `vless://${UUIDS}@${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${information}-[VL]-[InconigtoVpn]\n`;
+        conf += `vless://${UUIDS}@${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${information}-[VL]-[${nameWEB}]\n`;
       } else {
-        conf += `vless://${UUIDS}@${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${information}-[VL]-[InconigtoVpn]\n`;
+        conf += `vless://${UUIDS}@${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${information}-[VL]-[${nameWEB}]\n`;
       }
     } else if (type === 'trojan') {
       if (tls) {
-        conf += `trojan://${UUIDS}@${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${information}-[TR]-[InconigtoVpn]\n`;
+        conf += `trojan://${UUIDS}@${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${information}-[TR]-[${nameWEB}]\n`;
       } else {
-        conf += `trojan://${UUIDS}@${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${information}-[TR]-[InconigtoVpn]\n`;
+        conf += `trojan://${UUIDS}@${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${information}-[TR]-[${nameWEB}]\n`;
       }
     } else if (type === 'shadowsocks') {
       if (tls) {
-        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:443?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=tls&sni=${inconigtomode}#${information}-[SS]-[InconigtoVpn]\n`;
+        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:443?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=tls&sni=${inconigtomode}#${information}-[SS]-[${nameWEB}]\n`;
       } else {
-        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:80?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&sni=${inconigtomode}#${information}-[SS]-[InconigtoVpn]\n`;
+        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:80?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&sni=${inconigtomode}#${information}-[SS]-[${nameWEB}]\n`;
       }
     } else if (type === 'mix') {
       if (tls) {
-        conf += `vless://${UUIDS}@${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${information}-[VL]-[InconigtoVpn]\n`;
-        conf += `trojan://${UUIDS}@${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${information}-[TR]-[InconigtoVpn]\n`;
-        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:443?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=tls&sni=${inconigtomode}#${information}-[SS]-[InconigtoVpn]\n`;
+        conf += `vless://${UUIDS}@${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${information}-[VL]-[${nameWEB}]\n`;
+        conf += `trojan://${UUIDS}@${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${information}-[TR]-[${nameWEB}]\n`;
+        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:443?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=tls&sni=${inconigtomode}#${information}-[SS]-[${nameWEB}]\n`;
       } else {
-        conf += `vless://${UUIDS}@${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${information}-[VL]-[InconigtoVpn]\n`;
-        conf += `trojan://${UUIDS}@${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${information}-[TR]-[InconigtoVpn]\n`;
-        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:80?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&sni=${inconigtomode}#${information}-[SS]-[InconigtoVpn]\n`;
+        conf += `vless://${UUIDS}@${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${information}-[VL]-[${nameWEB}]\n`;
+        conf += `trojan://${UUIDS}@${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${information}-[TR]-[${nameWEB}]\n`;
+        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:80?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&sni=${inconigtomode}#${information}-[SS]-[${nameWEB}]\n`;
       }
     }
   }

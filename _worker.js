@@ -6,13 +6,13 @@ const DEFAULT_PROXY_BANK_URL2 = "https://raw.githubusercontent.com/InconigtoVPN/
 
 // Global Variables yang bisa di edit
 let cachedProxyList = [];
-let proxyIP = "";
+let proxyIP = "35.219.50.99:443";
 let apiCheck = "https://ipcf.rmtq.fun/json/?ip=";
 
 // watermark path
-let pathinfo = "rmtqwrt";
+let pathinfo = "indramayuwrt";
 // nama web 
-let nameWEB = "RMTQ-WRT";
+let nameWEB = "Indramayu;
 let telegram = "Noir7R";
 
 // Constants
@@ -258,7 +258,7 @@ function getAllConfig(hostName, proxyList) {
     const ssTls = `ss://${btoa(`none:${crypto.randomUUID()}`)}@${hostName}:443?encryption=none&type=ws&host=${hostName}&path=${pathcode}&security=tls&sni=${hostName}#(${encodedCountry}) ${encodedOrg}-[Tls]-[SS]-[${nameWEB}]`;
     const ssNTls = `ss://${btoa(`none:${crypto.randomUUID()}`)}@${hostName}:80?encryption=none&type=ws&host=${hostName}&path=${pathcode}&security=none&sni=${hostName}#(${encodedCountry}) ${encodedOrg}-[NTls]-[SS]-[${nameWEB}]`;
     const clashVLTls = `
-#InconigtoVPN
+#IndramayuVPN
 proxies:
 - name: (${country}) ${org}-[Tls]-[VL]-[${nameWEB}]
   server: ${hostName}
@@ -288,7 +288,7 @@ proxies:
     `;
 
     const clashTRTls =`
-#InconigtoVPN
+#IndramayuVPN
 proxies:      
 - name: (${country}) ${org}-[Tls]-[TR]-[${nameWEB}]
   server: ${hostName}
@@ -317,7 +317,7 @@ proxies:
     `;
 
     const clashSSTls =`
-#InconigtoVPN
+#IndramayuVPN
 proxies:
 - name: (${country}) ${org}-[Tls]-[SS]-[${nameWEB}]
   server: ${hostName}

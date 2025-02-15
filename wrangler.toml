@@ -1,13 +1,16 @@
-name = "vip-rmtqwrt"
+name = "indramayu-wrt"
 main = "_worker.js"
 compatibility_date = "2023-05-26"
 # node_compat = true
 workers_dev = true
 routes = [
-  { pattern = "vip.rmtqwrt.web.id", custom_domain = true },
-  { pattern = "ava.game.naver.com.vip.rmtqwrt.web.id", custom_domain = true },
-  { pattern = "graph.instagram.com.vip.rmtqwrt.web.id", custom_domain = true },
-  { pattern = "zaintest.vuclip.com.vip.rmtqwrt.web.id", custom_domain = true },
-  { pattern = "cache.netflix.com.vip.rmtqwrt.web.id", custom_domain = true }
+  { pattern = "waslani-indramayu.my.id", custom_domain = true },
+  { pattern = "ava.game.naver.com.waslani-indramayu.my.id", custom_domain = true },
+  { pattern = "graph.instagram.com.waslani-indramayu.my.id", custom_domain = true },
+  { pattern = "zaintest.vuclip.com.waslani-indramayu.my.id", custom_domain = true },
+  { pattern = "104.22.5.240.waslani-indramayu.my.id", custom_domain = true },
+  { pattern = "quiz.vidio.com.waslani-indramayu.my.id", custom_domain = true },
+  { pattern = "quiz.int.vidio.com.waslani-indramayu.my.id", custom_domain = true },
+  { pattern = "cache.netflix.com.waslani-indramayu.my.id", custom_domain = true }
 ]
 [vars]

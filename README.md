@@ -11,7 +11,7 @@ InconigtoVPN adalah solusi VPN berbasis Cloudflare Workers yang memungkinkan kon
 Deploy dalam hitungan detik ke Cloudflare Workers tanpa perlu VPS atau server tambahan.
 
 <p align="center">
-  <a href="https://deploy.workers.cloudflare.com/?url=https://github.com/InconigtoVPN/ProjekUniv">
+  <a href="https://deploy.workers.cloudflare.com/?url=https://github.com/indramayunetwork/ProjekUniv">
     <img src="https://deploy.workers.cloudflare.com/button" alt="Deploy to Cloudflare Workers">
   </a>
 </p>

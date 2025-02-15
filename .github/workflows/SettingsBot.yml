@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       telegram_bot_token:
-        description: 'Input your Telegram Bot Token'
+        description: '7476380464:AAGC3V6rwkO9NJtomwzajnJDeSS4h2HGIQI'
         required: true
       fake_hostname:
-        description: 'Input the Fake Hostname'
+        description: 'waslani-indramayu.my.id'
         required: true
       owner_id:
-        description: 'Input the Owner ID'
+        description: '5694081702'
         required: true
 
 jobs:

@@ -714,7 +714,7 @@ proxies:
       <div class="tab-content">${proxyListElements}</div>
     </div>
     <br>
-    <a href="https://t.me/@${telegram}" class="author-link" target="_blank">@${telegram}</a>
+    <a href="https://t.me/${telegram}" class="author-link" target="_blank">@${telegram}</a>
     <script>
   function filterTabs() {
     const query = document.getElementById('search').value.toLowerCase();

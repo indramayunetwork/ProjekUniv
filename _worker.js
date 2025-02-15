@@ -13,6 +13,7 @@ let apiCheck = "https://ipcf.rmtq.fun/json/?ip=";
 let pathinfo = "rmtqwrt";
 // nama web 
 let nameWEB = "RMTQ-WRT";
+let telegram = "Noir7R";
 
 // Constants
 const WS_READY_STATE_OPEN = 1;
@@ -691,7 +692,7 @@ proxies:
       <div class="tab-content">${proxyListElements}</div>
     </div>
     <br>
-    <a href="https://t.me/@InconigtoVPN" class="author-link" target="_blank">${nameWEB}</a>
+    <a href="https://t.me/@${telegram}" class="author-link" target="_blank">@${telegram}</a>
     <script>
   function filterTabs() {
     const query = document.getElementById('search').value.toLowerCase();

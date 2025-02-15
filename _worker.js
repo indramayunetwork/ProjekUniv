@@ -244,7 +244,7 @@ function getAllConfig(hostName, proxyList) {
   };
 
   const proxyListElements = proxyList.map(({ proxyIP, proxyPort, country, org }, index) => {
-    const watermark = `/${pathinfo}`;
+    const watermark = `%2F${pathinfo}`;
     const pathcode = `${watermark}${encodePath(proxyIP, proxyPort)}`;
     const encodedCountry = encodeSpace(country);
     const encodedOrg = encodeSpace(org);

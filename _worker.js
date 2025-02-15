@@ -12,7 +12,7 @@ let apiCheck = "https://ipcf.rmtq.fun/json/?ip=";
 // watermark path
 let pathinfo = "indramayuwrt";
 // nama web 
-let nameWEB = "Indramayu;
+let nameWEB = "Indramayu";
 let telegram = "Noir7R";
 
 // Constants

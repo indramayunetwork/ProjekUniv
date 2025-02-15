@@ -3514,31 +3514,31 @@ async function generateV2rayngSub(type, bug, inconigtomode, tls, country = null,
 
     if (type === 'vless') {
       if (tls) {
-        conf += `vless://${UUIDS}\u0040${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${ispInfo}-[VL]-[${nameWEB}]\n`;
+        conf += `vless://${UUIDS}\u0040${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}#${ispInfo}-[VL]-[${nameWEB}]\n`;
       } else {
-        conf += `vless://${UUIDS}\u0040${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${ispInfo}-[VL]-[${nameWEB}]\n`;
+        conf += `vless://${UUIDS}\u0040${bug}:80?path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${ispInfo}-[VL]-[${nameWEB}]\n`;
       }
     } else if (type === 'trojan') {
       if (tls) {
-        conf += `trojan://${UUIDS}\u0040${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${ispInfo}-[TR]-[${nameWEB}]\n`;
+        conf += `trojan://${UUIDS}\u0040${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}#${ispInfo}-[TR]-[${nameWEB}]\n`;
       } else {
-        conf += `trojan://${UUIDS}\u0040${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${ispInfo}-[TR]-[${nameWEB}]\n`;
+        conf += `trojan://${UUIDS}\u0040${bug}:80?path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${ispInfo}-[TR]-[${nameWEB}]\n`;
       }
     } else if (type === 'shadowsocks') {
       if (tls) {
-        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:443?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=tls&sni=${inconigtomode}#${ispInfo}-[ss]-[${nameWEB}]\n`;
+        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:443?encryption=none&type=ws&host=${inconigtomode}&path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}&security=tls&sni=${inconigtomode}#${ispInfo}-[ss]-[${nameWEB}]\n`;
       } else {
-        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:80?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&sni=${inconigtomode}#${ispInfo}-[SS]-[${nameWEB}]\n`;
+        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:80?encryption=none&type=ws&host=${inconigtomode}&path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}&security=none&sni=${inconigtomode}#${ispInfo}-[SS]-[${nameWEB}]\n`;
       }
     } else if (type === 'mix') {
       if (tls) {
-        conf += `vless://${UUIDS}\u0040${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${ispInfo}-[VL]-[${nameWEB}]\n`;
-        conf += `trojan://${UUIDS}\u0040${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${ispInfo}-[TR]-[${nameWEB}]\n`;
-        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:443?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=tls&sni=${inconigtomode}#${ispInfo}-[SS]-[${nameWEB}]\n`;
+        conf += `vless://${UUIDS}\u0040${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}#${ispInfo}-[VL]-[${nameWEB}]\n`;
+        conf += `trojan://${UUIDS}\u0040${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}#${ispInfo}-[TR]-[${nameWEB}]\n`;
+        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:443?encryption=none&type=ws&host=${inconigtomode}&path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}&security=tls&sni=${inconigtomode}#${ispInfo}-[SS]-[${nameWEB}]\n`;
       } else {
-        conf += `vless://${UUIDS}\u0040${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${ispInfo}-[VL]-[${nameWEB}]\n`;
-        conf += `trojan://${UUIDS}\u0040${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${ispInfo}-[TR]-[${nameWEB}]\n`;
-        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:80?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&sni=${inconigtomode}#${ispInfo}-[SS]-[${nameWEB}]\n`;
+        conf += `vless://${UUIDS}\u0040${bug}:80?path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${ispInfo}-[VL]-[${nameWEB}]\n`;
+        conf += `trojan://${UUIDS}\u0040${bug}:80?path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${ispInfo}-[TR]-[${nameWEB}]\n`;
+        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:80?encryption=none&type=ws&host=${inconigtomode}&path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}&security=none&sni=${inconigtomode}#${ispInfo}-[SS]-[${nameWEB}]\n`;
       }
     }
   }
@@ -3580,31 +3580,31 @@ async function generateV2raySub(type, bug, inconigtomode, tls, country = null, l
     const information = encodeURIComponent(`${emojiFlag} (${line.split(',')[2]}) ${line.split(',')[3]}`);
     if (type === 'vless') {
       if (tls) {
-        conf += `vless://${UUIDS}@${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${information}-[VL]-[${nameWEB}]\n`;
+        conf += `vless://${UUIDS}@${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}#${information}-[VL]-[${nameWEB}]\n`;
       } else {
-        conf += `vless://${UUIDS}@${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${information}-[VL]-[${nameWEB}]\n`;
+        conf += `vless://${UUIDS}@${bug}:80?path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${information}-[VL]-[${nameWEB}]\n`;
       }
     } else if (type === 'trojan') {
       if (tls) {
-        conf += `trojan://${UUIDS}@${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${information}-[TR]-[${nameWEB}]\n`;
+        conf += `trojan://${UUIDS}@${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}#${information}-[TR]-[${nameWEB}]\n`;
       } else {
-        conf += `trojan://${UUIDS}@${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${information}-[TR]-[${nameWEB}]\n`;
+        conf += `trojan://${UUIDS}@${bug}:80?path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${information}-[TR]-[${nameWEB}]\n`;
       }
     } else if (type === 'shadowsocks') {
       if (tls) {
-        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:443?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=tls&sni=${inconigtomode}#${information}-[SS]-[${nameWEB}]\n`;
+        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:443?encryption=none&type=ws&host=${inconigtomode}&path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}&security=tls&sni=${inconigtomode}#${information}-[SS]-[${nameWEB}]\n`;
       } else {
-        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:80?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&sni=${inconigtomode}#${information}-[SS]-[${nameWEB}]\n`;
+        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:80?encryption=none&type=ws&host=${inconigtomode}&path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}&security=none&sni=${inconigtomode}#${information}-[SS]-[${nameWEB}]\n`;
       }
     } else if (type === 'mix') {
       if (tls) {
-        conf += `vless://${UUIDS}@${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${information}-[VL]-[${nameWEB}]\n`;
-        conf += `trojan://${UUIDS}@${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}#${information}-[TR]-[${nameWEB}]\n`;
-        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:443?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=tls&sni=${inconigtomode}#${information}-[SS]-[${nameWEB}]\n`;
+        conf += `vless://${UUIDS}@${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}#${information}-[VL]-[${nameWEB}]\n`;
+        conf += `trojan://${UUIDS}@${bug}:443?encryption=none&security=tls&sni=${inconigtomode}&fp=randomized&type=ws&host=${inconigtomode}&path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}#${information}-[TR]-[${nameWEB}]\n`;
+        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:443?encryption=none&type=ws&host=${inconigtomode}&path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}&security=tls&sni=${inconigtomode}#${information}-[SS]-[${nameWEB}]\n`;
       } else {
-        conf += `vless://${UUIDS}@${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${information}-[VL]-[${nameWEB}]\n`;
-        conf += `trojan://${UUIDS}@${bug}:80?path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${information}-[TR]-[${nameWEB}]\n`;
-        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:80?encryption=none&type=ws&host=${inconigtomode}&path=%2FFree%2FinconigtoVPN%2F${proxyHost}%2F${proxyPort}&security=none&sni=${inconigtomode}#${information}-[SS]-[${nameWEB}]\n`;
+        conf += `vless://${UUIDS}@${bug}:80?path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${information}-[VL]-[${nameWEB}]\n`;
+        conf += `trojan://${UUIDS}@${bug}:80?path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}&security=none&encryption=none&host=${inconigtomode}&fp=randomized&type=ws&sni=${inconigtomode}#${information}-[TR]-[${nameWEB}]\n`;
+        conf += `ss://${btoa(`none:${UUIDS}`)}%3D@${bug}:80?encryption=none&type=ws&host=${inconigtomode}&path=%2F${pathinfo}%2F${proxyHost}%2F${proxyPort}&security=none&sni=${inconigtomode}#${information}-[SS]-[${nameWEB}]\n`;
       }
     }
   }

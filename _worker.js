@@ -10,9 +10,9 @@ let proxyIP = "";
 let apiCheck = "https://ipcf.rmtq.fun/json/?ip=";
 
 // watermark path
-let pathinfo = "afrcloud";
+let pathinfo = "rmtqwrt";
 // nama web 
-let nameWEB = "AFR-CLOUD";
+let nameWEB = "RMTQ-WRT";
 
 // Constants
 const WS_READY_STATE_OPEN = 1;
